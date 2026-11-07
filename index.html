@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tacizin · Idimus Donv Zan</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+:root{--bg:#0c0b0c;--panel:#151314;--panel2:#1d1a1b;--line:#37312f;--line2:#5a4f45;--text:#ece5da;--muted:#a49b92;--acc:#c9b68c;--acc2:#8f7f60}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 50% -10%,#2a2321 0%,#151213 45%,#0b0a0b 100%) fixed;color:var(--text);font:21px/1.45 'Cormorant Garamond',Georgia,serif;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3,.cz{font-family:'Cinzel',serif;font-weight:500;letter-spacing:.18em;text-transform:uppercase}
+.wrap{max-width:1020px;width:100%;margin:0 auto;padding:78px 20px 30px;flex:1}
+.top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 26px;background:linear-gradient(#0c0b0cf2,#0c0b0cc0);border-bottom:1px solid var(--line);backdrop-filter:blur(4px)}
+.brand{font:600 15px 'Cinzel Decorative',serif;letter-spacing:.3em;color:var(--acc);cursor:pointer;text-transform:uppercase}
+.top nav{display:flex;gap:22px;flex-wrap:wrap;justify-content:flex-end}
+.top nav a{font:500 12px 'Cinzel',serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);cursor:pointer;padding:4px 0;border-bottom:1px solid transparent;transition:.25s}
+.top nav a:hover{color:var(--text);border-color:var(--acc2)}.top nav a.on{color:var(--acc);border-color:var(--acc)}
+.hero{text-align:center;padding:10px 0 26px;margin-bottom:26px;position:relative}
+.hero svg{display:block;margin:0 auto 6px;width:92px;height:auto}
+.hero h1{font:700 clamp(34px,7vw,58px) 'Cinzel Decorative',serif;letter-spacing:.28em;margin:0;text-indent:.28em}
+.hero.sm h1{font-size:clamp(26px,4.5vw,36px)}.hero.sm svg{width:56px}
+.rule{display:flex;align-items:center;gap:12px;justify-content:center;margin:14px auto 0;max-width:420px;color:var(--acc2)}
+.rule:before,.rule:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line2))}.rule:after{transform:scaleX(-1)}
+.rule i{width:7px;height:7px;border:1px solid var(--acc2);transform:rotate(45deg)}
+.sub{font:500 13px 'Cinzel',serif;letter-spacing:.42em;color:var(--acc);margin-top:12px;text-indent:.42em}
+.tag{font-style:italic;color:var(--muted);font-size:22px;margin:14px 0 6px}.small{font:500 11px 'Cinzel',serif;letter-spacing:.24em;color:var(--muted);text-transform:uppercase}
+.card{background:linear-gradient(180deg,#171415,#121011);border:1px solid var(--line);outline:1px solid #ffffff08;outline-offset:-6px;padding:26px 24px;margin-bottom:18px;text-align:center;position:relative}
+.card:before,.card:after{content:"";position:absolute;width:10px;height:10px;border:1px solid var(--acc2)}
+.card:before{top:-1px;left:-1px;border-right:0;border-bottom:0}.card:after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.card h3{margin:0 0 8px;font-size:15px;color:var(--acc)}.card p{color:var(--muted);margin:0 0 16px}
+.narrow{max-width:470px;margin:0 auto}
+input,textarea,select{width:100%;background:#0e0c0d;border:1px solid var(--line);border-bottom-color:var(--line2);color:var(--text);padding:11px 13px;font:20px 'Cormorant Garamond',serif;outline:none;border-radius:0}
+input:focus,textarea:focus,select:focus{border-color:var(--acc2)}textarea{min-height:70px;resize:vertical}
+button{background:transparent;color:var(--text);border:1px solid var(--line2);padding:11px 22px;font:500 12px 'Cinzel',serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:.25s;border-radius:0}
+button:hover{background:#ffffff0d;border-color:var(--acc);color:var(--acc)}button.p{border-color:var(--acc);color:var(--acc)}button.p:hover{background:var(--acc);color:#16120d}
+button.sm{padding:6px 11px;font-size:10px;letter-spacing:.14em}button.act{border-color:var(--acc);color:var(--acc);background:#ffffff0a}
+.lk{background:none;border:0;padding:4px 2px;color:var(--muted);letter-spacing:.18em;font-size:11px;border-bottom:1px solid var(--line2)}.lk:hover{background:none;color:var(--acc)}
+label{display:block;font:500 11px 'Cinzel',serif;letter-spacing:.2em;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;text-align:left}
+.msg{min-height:24px;margin:10px 0;font-size:18px}.err{color:#d0a3a0}.ok{color:#b8c9b0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.entry{background:linear-gradient(145deg,#1a1718,#131112);border:1px solid var(--line);border-top:2px solid var(--acc2);padding:16px 16px 14px;cursor:pointer;transition:.25s;text-align:left;}
+.entry:hover{border-color:var(--acc2);transform:translateY(-2px)}
+.entry h2{margin:0 0 6px;font:600 21px 'Cinzel',serif;letter-spacing:.06em;text-transform:none;color:var(--acc)}.entry .m{font-size:21px}.pr{color:var(--muted);font-size:17px;margin-top:6px;font-style:italic}
+.gl{zoom:.42;margin:0 2px;vertical-align:middle}.glyphs{margin:4px 0 8px;min-height:44px;line-height:1}
+.sec{margin:34px 0 16px;padding-top:6px}.sec h2{font-size:17px;margin:0 0 4px;color:var(--acc)}.sec p{color:var(--muted);margin:0 0 12px}
+.sec:before{content:"";display:block;height:1px;background:linear-gradient(90deg,var(--line2),transparent);margin-bottom:16px}
+table{width:100%;border-collapse:collapse;margin-bottom:10px}td,th{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle}th{font:500 11px 'Cinzel',serif;letter-spacing:.2em;color:var(--acc2);text-transform:uppercase}td img{zoom:.7}
+.kb{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:10px;border:1px solid var(--line);background:#0f0d0e}.kb button{min-width:44px;padding:5px 8px}.kb img{zoom:.3;display:block;margin:auto}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>.g{flex:1;min-width:200px}
+.modal{position:fixed;inset:0;background:#000c;display:flex;align-items:center;justify-content:center;padding:18px;z-index:40;overflow:auto}.modal .card{max-width:500px;width:100%;text-align:left}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}.stat{border:1px solid var(--line);padding:14px;background:var(--panel);font:500 11px 'Cinzel',serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}.stat b{display:block;font:600 30px 'Cinzel',serif;color:var(--text);margin-top:4px}
+footer{text-align:center;padding:22px;color:#7d746b;font:500 11px 'Cinzel',serif;letter-spacing:.3em}
+.page{animation:f .45s ease}@keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.chip{display:inline-block;border:1px solid var(--line);padding:2px 8px;margin:3px;font:500 11px 'Cinzel',serif;letter-spacing:.1em;color:var(--muted)}
+@media(max-width:640px){.top{padding:10px 14px}.top nav{gap:12px}.wrap{padding-top:96px}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<footer>© TACIZIN · IDIMUS DONV ZAN</footer>
+
+<script>
+// --- BANCO DE DADOS LOCAL E NUVEM ---
+const DB_KEY = 'tacizin_local_db';
+var db = JSON.parse(localStorage.getItem(DB_KEY)) || {
+    words: [],
+    users: [], 
+    wotd: null
+};
+window.db = db;
+
+function saveDb() {
+    localStorage.setItem(DB_KEY, JSON.stringify(db));
+}
+
+// Garante que o mestre Zani sempre exista no banco de dados
+if (!db.users.find(u => u.username === 'Zani')) {
+    const master = { username: 'Zani', password: 'ZanDaGuerra', role: 'master', joinedAt: Date.now() };
+    db.users.push(master);
+    saveDb();
+    if(window.saveUserToCloud) window.saveUserToCloud(master);
+}
+
+// --- DADOS DO IDIOMA ---
+const ORDER=['A','B','C','D','E','F','G','I','J','L','M','N','O','P','R','U','V','Z','CH','LH','SS'];
+const NAMES=['ãh','bue','chi','dâ','ê','êfi','gua','i','juota','êqüili','emi','enli','uo','pue','eri','ug','vue','zai','Châ','lhu','Zais'];
+const ACC=[['Pruá','Acento agudo','Equivale ao acento agudo do português.'],['Juâ','Acento circunflexo','Equivale ao acento circunflexo do português.'],['Proôn','Sem equivalente direto','Indica o alongamento de uma vogal.'],['Zâuá','Sem equivalente direto','Transforma o acento agudo em grave.'],['Záuâ','Sem equivalente direto','Transforma o acento grave em agudo.'],['Télus','Sem equivalente direto','Usado exclusivamente na letra C; muda seu som para T.']];
+const PUN=[['?','igs','Interrogação'],['!','dâ','Exclamação'],['.','pueo','Ponto final'],[',','guin','Vírgula']];
+const G={"a":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3MCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMjUuMCIgeTE9IjQ4LjciIHgyPSI0MC44IiB5Mj0iMTIuNyIvPjxsaW5lIHgxPSIyNS4wIiB5MT0iNDguNyIgeDI9IjguMCIgeTI9Ijg1LjAiLz48bGluZSB4MT0iMjUuMCIgeTE9IjQ4LjciIHgyPSI1NS43IiB5Mj0iNDguNyIvPjxsaW5lIHgxPSI0MC44IiB5MT0iMTIuNyIgeDI9IjU1LjciIHkyPSI0OC43Ii8+PC9nPjwvc3ZnPg==","b":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5NyIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA5NyAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iOC4wIiB5MT0iNjEuNyIgeDI9IjI0LjciIHkyPSI2MS43Ii8+PGxpbmUgeDE9IjI0LjciIHkxPSI2MS43IiB4Mj0iMjQuNyIgeTI9Ijc1LjAiLz48bGluZSB4MT0iMjQuNyIgeTE9IjYxLjciIHgyPSIyNC43IiB5Mj0iNDguMCIvPjxsaW5lIHgxPSIyNC43IiB5MT0iNjEuNyIgeDI9IjY4LjAiIHkyPSI2MS43Ii8+PGxpbmUgeDE9IjY4LjAiIHkxPSI2MS43IiB4Mj0iODguMCIgeTI9IjQ2LjAiLz48L2c+PC9zdmc+","c":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NiIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA2NiAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMzQuMyIgeTE9IjQ2LjMiIHgyPSIxMi4wIiB5Mj0iNzQuNSIvPjxsaW5lIHgxPSIzNC4zIiB5MT0iNDYuMyIgeDI9IjE2LjgiIHkyPSIzNy4wIi8+PGxpbmUgeDE9IjM0LjMiIHkxPSI0Ni4zIiB4Mj0iNTYuMCIgeTI9IjUzLjAiLz48bGluZSB4MT0iMTIuMCIgeTE9Ijc0LjUiIHgyPSI1MC4wIiB5Mj0iOTcuMCIvPjxsaW5lIHgxPSIxNi44IiB5MT0iMzcuMCIgeDI9IjU0LjciIHkyPSIxNi43Ii8+PC9nPjwvc3ZnPg==","d":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MyIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA1MyAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNDIuMCIgeTE9IjkxLjAiIHgyPSI0Mi4wIiB5Mj0iNTYuMCIvPjxsaW5lIHgxPSI0Mi4wIiB5MT0iNTYuMCIgeDI9IjkuNSIgeTI9IjU2LjAiLz48bGluZSB4MT0iOS41IiB5MT0iNTYuMCIgeDI9IjkuNSIgeTI9IjIzLjAiLz48bGluZSB4MT0iOS41IiB5MT0iMjMuMCIgeDI9IjQyLjAiIHkyPSIyMy4wIi8+PC9nPjwvc3ZnPg==","e":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3MCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNTkuMCIgeTE9IjE4LjAiIHgyPSIyNS41IiB5Mj0iMTguMCIvPjxsaW5lIHgxPSIyNS41IiB5MT0iMTguMCIgeDI9IjI1LjUiIHkyPSI0MC4wIi8+PGxpbmUgeDE9IjI1LjUiIHkxPSI0MC4wIiB4Mj0iOS41IiB5Mj0iNDQuMCIvPjxsaW5lIHgxPSI5LjUiIHkxPSI0NC4wIiB4Mj0iOS41IiB5Mj0iNjYuMCIvPjxsaW5lIHgxPSI5LjUiIHkxPSI2Ni4wIiB4Mj0iMjYuNSIgeTI9IjY2LjAiLz48bGluZSB4MT0iMjYuNSIgeTE9IjY2LjAiIHgyPSIyNi41IiB5Mj0iODguMCIvPjxsaW5lIHgxPSIyNi41IiB5MT0iODguMCIgeDI9IjU2LjAiIHkyPSIODguMCIvPjwvZz48L3N2Zz4=","f":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3NCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMzUuNSIgeTE9IjIyLjMiIHgyPSI1Ny43IiB5Mj0iNDYuOCIvPjxsaW5lIHgxPSIzNS41IiB5MT0iMjIuMyIgeDI9IzM1LjUiIHkyPSI0Ni44Ii8+PGxpbmUgeDE9IjU3LjciIHkxPSI0Ni44IiB4Mj0iMzUuNSIgeTI9IjQ2LjguLz48bGluZSB4MT0iMzUuNSIgeTE9IjQ2LjgiIHgyPSIzNS41IiB5Mj0iNzcuMCIvPjxsaW5lIHgxPSIzNS41IiB5MT0iNzcuMCIgeDI9IjkuMCIgeTI9IjkzLjAiLz48L2c+PC9zdmc+","g":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2OSIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA2OSAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNDguOCIgeTE9IjYzLjgiIHgyPSI1My43IiB5Mj0iNzkuMyIvPjxsaW5lIHgxPSI0OC44IiB5MT0iNjMuODEgeDI9IjQwLjAiIHkyPSI2OS4wIi8+PGxpbmUgeDE9IjQ4LjgiIHkxPSI2My44IiB4Mj0iNTkuMCIgeTI9IjU4LjAiLz48bGluZSB4MT0iNDguOCIgeTE9IjYzLjgiIHgyPSI0NS4wIiB5Mj0iNTUuMCIvPjxsaW5lIHgxPSI1My43IiB5MT0iNzkuMyIgeDI9IjEzLjAiIHkyPSI3OS4zIi8+PGxpbmUgeDE9IjQ3LjAiIHkxPSIyMS4wIiB4Mj0iMTMuMCIgeTI9Ijc5LjMiLz48L2c+PC9zdmc+","i":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MiIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA2MiAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMjUuMCIgeTE9IjI4LjAiIHgyPSIzNS4wIiB5Mj0iMzcuNCIvPjxsaW5lIHgxPSIzNS4wIiB5MT0iMzcuNCIgeDI9IjQ3LjIiIHkyPSI0OC4wIi8+PGxpbmUgeDE9IjM1LjAiIHkxPSIzNy40IiB4Mj0iMjkuMCIgeTI9IjQ2LjAiLz48bGluZSB4MT0iMzUuMCIgeTE9IjM3LjQIiB4Mj0iNDEuMCIgeTI9IjI3LjAiLz48bGluZSB4MT0iNDcuMiIgeTE9IjQ4LjAiIHgyPSIxMC4wIiB5Mj0iODUuMCIvPjwvZz48L3N2Zz4=","j":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OSIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA0OSAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMjMuMyIgeTE9IjUyLjMiIHgyPSIzOC4zIiB5Mj0iNTIuMyIvPjxsaW5lIHgxPSIyMy4zIiB5MT0iNTIuMyIgeDI9IjIzLjMiIHkyPSIzNi4wIi8+PGxpbmUgeDE9IjIzLjMiIHkxPSI1Mi4zIiB4Mj0iMjMuMyIgeTI9IjY3LjAiLz48bGluZSB4MT0iMjMuMyIgeTE9IjUyLjMiIHgyPSI5LjUiIHkyPSI1Mi4zIi8+PGxpbmUgeDE9IjM4LjMiIHkxPSI1Mi4zIiB4Mj0iMzguMiIgeTI9Ijc4LjAiLz48bGluZSB4MT0iMzguMyIgeTE9IjUyLjMiIHgyPSIzOC4zIiB5Mj0iMjQuMCIvPjxsaW5lIHgxPSI5LjUiIHkxPSI3OC4wIiB4Mj0iOS41IiB5Mj0iNTIuMyIvPjwvZz48L3N2Zz4=","l":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3NCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNjIuOSIgeTE9IjIyLjAiIHgyPSI1Mi4wIiB5Mj0iMzEuMyIvPjxsaW5lIHgxPSI2Mi45IiB5MT0iMjIuMCIgeDI9IjYyLjkiIHkyPSI0MC4wIi8+PGxpbmUgeDE9IjUyLjAiIHkxPSIzMS4zIiB4Mj0iMjEuOSIgeTI9IjMxLjMiLz48bGluZSB4MT0iMjEuOSIgeTE9IjMxLjMiIHgyPSIxMS40IiB5Mj0iMzYuMCIvPjxsaW5lIHgxPSIyMS45IiB5MT0iMzEuMyIgeDI9IjExLjQiIHkyPSIyMS43Ii8+PGxpbmUgeDE9IjIxLjkiIHkxPSIzMS4zIiB4Mj0iMjEuOSIgeTI9Ijc0LjAiLz48bGluZSB4MT0iMTEuNCIgeTE9IjM2LjAiIHgyPSIxMS40IiB5Mj0iMjEuNyIvPjwvZz48L3N2Zz4=","m":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NSIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3NSAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMzYuMiIgeTE9IjM4LjAiIHgyPSI0OC41IiB5Mj0iNDQuMCIvPjxsaW5lIHgxPSIzNi4yIiB5MT0iMzguMCIgeDI9IjM2LjIiIHkyPSI3My4wIi8+PGxpbmUgeDE9IjM2LjIiIHkxPSIzOC4wIiB4Mj0iMjMuMCIgeTI9IjQ0LjAiLz48bGluZSB4MT0iNDguNSIgeTE9IjQ0LjAiIHgyPSI2My4zIiB5Mj0iMjAuMyIvPjxsaW5lIHgxPSI5LjciIHkxPSIyMC4zIiB4Mj0iMjMuMCIgeTI9IjQ0LjAiLz48L2c+PC9zdmc+","n":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0NiIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA0NiAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMTguMCIgeTE9IjUxLjAiIHgyPSIzNC41IiB5Mj0iNTEuMCIvPjxsaW5lIHgxPSIzNC41IiB5MT0iNTEuMCIgeDI9IjM0LjUiIHkyPSI2OC41Ii8+PGxpbmUgeDE9IjM0LjUiIHkxPSI2OC41IiB4Mj0iOS4wIiB5Mj0iNjguNSIvPjxsaW5lIHgxPSI5LjAiIHkxPSI2OC41IiB4Mj0iOS4wIiB5Mj0iMjMuMCIvPjxsaW5lIHgxPSI5LjAiIHkxPSIyMy4wIiB4Mj0iMzQuNSIgeTI9IjIzLjAiLz48bGluZSB4MT0iMzQuNSIgeTE9IjIzLjAiIHgyPSIzNC41IiB5Mj0iMzhuNSIvPjxsaW5lIHgxPSIzNC41IiB5MT0iMzhuNSIgeDI9IjE4LjAiIHkyPSIzOC41Ii8+PC9nPjwvc3ZnPg==","o":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MyIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3MyAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iOC4wIiB5MT0iNDMuMiIgeDI9IjY0LjciIHkyPSI0My4yIi8+PGxpbmUgeDE9IjguMCIgeTE9IjQzLjIiIHgyPSI4LjAiIHkyPSI3Mi4wIi8+PGxpbmUgeDE9IjM1LjkiIHkxPSI0My4yIiB4Mj0iMzUuOSIgeTI9IjcyLjAiLz48bGluZSB4MT0iMzUuOSIgeTE9IjcwLjgiIHgyPSI2NC43IiB5Mj0iNzAuOCIvPjxsaW5lIHgxPSI2My44IiB5MT0iNDMuMiIgeDI9IjYzLjgiIHkyPSI3Mi4wIi8+PC9nPjwvc3ZnPg==","p":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MSIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA4MSAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNzAuMiIgeTE9IjU3LjAiIHgyPSI3MC4zIiB5Mj0iNzIuMCIvPjxsaW5lIHgxPSI3MC4yIiB5MT0iNTcuMCIgeDI9IjUwLjUiIHkyPSI1Ny4wIi8+PGxpbmUgeDE9IjcwLjIiIHkxPSI1Ny4wIiB4Mj0iNzAuMiIgeTI9IjQxLjEnLz48bGluZSB4MT0iNzAuMyIgeTE9IjcyLjAiIHgyPSIzMC4zIiB5Mj0iNzIuMCIvPjxsaW5lIHgxPSIzMC4zIiB5MT0iNzIuMCIgeDI9IjMwLjMIiB5Mj0iNDEuMSIvPjxsaW5lIHgxPSIzMC4zIiB5MT0iNDEuMSIgeDI9IjUwLjUiIHkyPSI0MS4xIi8+PGxpbmUgeDE9IjMwLjMIiB5MT0iNDEuMSIgeDI9IjMwLjMIiB5Mj0iMjYuMCIvPjxsaW5lIHgxPSIzMC4zIiB5MT0iNDEuMSIgeDI9IjEwLjAiIHkyPSI0MS4xIi8+PGxpbmUgeDE9IjUwLjUiIHkxPSI1Ny4wIiB4Mj0iNTAuNSIgeTI9IjQxLjEiLz48bGluZSB4MT0iNTAuNSIgeTE9IjQxLjEiIHgyPSI3MC4yIiB5Mj0iNDEuMSIvPjwvZz48L3N2Zz4=","r":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDIiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAyIDEwMCI+PGcgc3Ryb2tlPSIjZTllMWQ2IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIGZpbGw9Im5vbmUiPjxsaW5lIHgxPSI4LjAiIHkxPSIyNC4wIiB4Mj0iOTQuMCIgeTI9IjI0LjAiLz48bGluZSB4MT0iOTQuMCIgeTE9IjI0LjAiIHgyPSI5NC4wIiB5Mj0iODEuMCIvPjxsaW5lIHgxPSI5NC4wIiB5MT0iODEuMCIgeDI9IjguMCIgeTI9IjgxLjAiLz48bGluZSB4MT0iOC4wIiB5MT0iODEuMCIgeDI9IjguMCIgeTI9IjI0LjAiLz48bGluZSB4MT0iOC4wIiB5MT0iODEuMCIgeDI9IjUxLjAiIHkyPSIyNC4wIi8+PGxpbmUgeDE9Ijk0LjAiIHkxPSI4MS4wIiB4Mj0iNTEuMCIgeTI9IjI0LjAiLz48L2c+PC9zdmc+","u":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3MCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3MCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNTguNyIgeTE9IjI3LjciIHgyPSIzOC41IiB5Mj0iNTQuMCIvPjxsaW5lIHgxPSIzOC41IiB5MT0iNTQuMCIgeDI9IjM4LjUiIHkyPSI3NS4wIi8+PGxpbmUgeDE9IjM4LjUiIHkxPSI3NS4wIiB4Mj0iMTAuMCIgeTI9Ijc1LjAiLz48bGluZSB4MT0iMTAuMCIgeTE9Ijc1LjAiIHgyPSIxMC4wIiB5Mj0iMjIuMCIvPjwvZz48L3N2Zz4=","v":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NSIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA1NSAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMjAuMyIgeTE9IjQ5LjciIHgyPSI0MS4wIiB5Mj0iNDkuNyIvPjxsaW5lIHgxPSIyMC4zIiB5MT0iNDkuNyIgeDI9IjI5LjAiIHkyPSI3MC4wIi8+PGxpbmUgeDE9IjIwLjMiIHkxPSI0OS43IiB4Mj0iMTAuMCIgeTI9IjIxLjAiLz48bGluZSB4MT0iNDEuMCIgeTE9IjQ5LjciIHgyPSIyOS4wIiB5Mj0iNzAuMCIvPjxsaW5lIHgxPSIyOS4wIiB5MT0iNzAuMCIgeDI9IjI5LjAiIHkyPSI3OS4wIi8+PC9nPjwvc3ZnPg==","z":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3OCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3OCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iOC4wIiB5MT0iMjkuMCIgeDI9IjcwLjAiIHkyPSIyOS4wIi8+PGxpbmUgeDE9IjguMCIgeTE9Ijc5LjAiIHgyPSI3MC4wIiB5Mj0iNzkuMCIvPjxsaW5lIHgxPSI4LjAiIHkxPSIyOS4wIiB4Mj0iNzAuMCIgeTI9Ijc5LjAiLz48bGluZSB4MT0iNzAuMCIgeTE9IjI5LjAiIHgyPSI4LjAiIHkyPSI3OS4wIi8+PC9nPjwvc3ZnPg==","ch":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NSIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3NSAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMTEuNCIgeTE9Ijc2LjUiIHgyPSI2NC4wIiB5Mj0iNzYuNSIvPjxsaW5lIHgxPSIxMS40IiB5MT0iNzYuNSIgeDI9IjU3LjMiIHkyPSIzMC40Ii8+PGxpbmUgeDE9IjExLjQiIHkxPSI3Ni41IiB4Mj0iMTEuNCIgeTI9IjMwLjQuIi8+PGxpbmUgeDE9IjY0LjAiIHkxIjc2LjUiIHgyPSI2NC4wIiB5Mj0iMzAuNCIvPjxsaW5lIHgxPSI2NC4wIiB5MT0iMzAuNCIgeDI9IjU3LjMiIHkyPSIzMC40Ii8+PGxpbmUgeDE9IjU3LjMiIHkxPSIzMC40IiB4Mj0iMTEuNCIgeTI9IjMwLjQuIi8+PC9nPjwvc3ZnPg==","lh":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA3NCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNjMuNSIgeTE9IjI5LjAiIHgyPSI2My41IiB5Mj0iNjQuNyIvPjxsaW5lIHgxPSI2My41IiB5MT0iNjQuNyIgeDI9IjUwLjMiIHkyPSI2NC43Ii8+PGxpbmUgeDE9IjUwLjMiIHkxPSI2NC43IiB4Mj0iNDEuMCIgeTI9IjY0LjciLz48bGluZSB4MT0iNTAuMyIgeTE9IjY0LjciIHgyPSI1NS4wIiB5Mj0iNzguNSIvPjxsaW5lIHgxPSI1MC4zIiB5MT0iNjQuNyIgeDI9IjQ1LjAiIHkyPSI1Ni4wIi8+PGxpbmUgeDE9IjU1LjAiIHkxPSI3OC41IiB4Mj0iMTEuMCIgeTI9Ijc4LjUiLz48bGluZSB4MT0iMTEuMCIgeTE9Ijc4LjUiIHgyPSIzNS4wIiB5Mj0iMjYuMCIvPjwvZz48L3N2Zz4=","ss":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OSIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA0OSAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMjQuMCIgeTE9IjYwLjAiIHgyPSIzNy4wIiB5Mj0iNjAuMCIvPjxsaW5lIHgxPSIyNC4wIiB5MT0iNjAuMCIgeDI9IjI0LjAiIHkyPSI0NS4zIi8+PGxpbmUgeDE9IjI0LjAiIHkxPSI2MC4wIiB4Mj0iMjQuMCIgeTI9Ijc0LjMiLz48bGluZSB4MT0iMjQuMCIgeTE9IjYwLjAiIHgyPSI4LjAiIHkyPSI2MC4wIi8+PGxpbmUgeDE9IjI0LjAiIHkxPSI0NS4zIiB4Mj0iMzguMCIgeTI9IjQ1LjMiLz48bGluZSB4MT0iMjQuMCIgeTE9IjQ1LjMiIHgyPSI5LjAiIHkyPSI0NS4zIi8+PGxpbmUgeDE9IjI0LjAiIHkxPSI0NS4zIiB4Mj0iMjQuMCIgeTI9IjI5LjAiLz48bGluZSB4MT0iMjQuMCIgeTE9Ijc0LjMiIHgyPSIyNC4wIiB5Mj0iODYuMCIvPjxsaW5lIHgxPSIyNC4wIiB5MT0iNzQuMyIgeDI9IjM4LjAiIHkyPSI3NC4zIi8+PGxpbmUgeDE9IjI0LjAiIHkxPSI3NC4zIiB4Mj0iOS4wIiB5Mj0iNzQuMyIvPjwvZz48L3N2Zz4=","ac1":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTQiIGhlaWdodD0iMTQwIiB2aWV3Qm94PSIwIDAgMTE0IDE0MCI+PGcgc3Ryb2tlPSIjZTllMWQ2IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIGZpbGw9Im5vbmUiPjxsaW5lIHgxPSIzNy4wIiB5MT0iNjQuNiIgeDI9IjkuMCIgeTI9IjY0LjYiLz48bGluZSB4MT0iMzcuMCIgeTE9IjY0LjYiIHgyPSI2OC4wIiB5Mj0iMTAuMCIvPjxsaW5lIHgxPSIzNy4wIiB5MT0iNjQuNiIgeDI9IjEwMy4wIiB5Mj0iNjQuNiIvPjwvZz48L3N2Zz4=","ac2":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2OSIgaGVpZ2h0PSIxNDAiIHZpZXdCb3g9IjAgMCA2OSAxNDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iOC4wIiB5MT0iNDEuMCIgeDI9IjI3LjAiIHkyPSI1Mi42Ii8+PGxpbmUgeDE9IjI3LjAiIHkxPSI1Mi42IiB4Mj0iMjEuMCIgeTI9IjYyLjAiLz48bGluZSB4MT0iMjcuMCIgeTE9IjUyLjYiIHgyPSIzNC44IiB5Mj0iNDAuOCIvPjxsaW5lIHgxPSIyNy4wIiB5MT0iNTIuNiIgeDI9IjQ2LjAiIHkyPSI2NC4wIi8+PGxpbmUgeDE9IjM0LjgiIHkxPSI0MC44IiB4Mj0iNTguMCIgeTI9IjcuMCIvPjxsaW5lIHgxPSIzNC44IiB5MT0iNDAuOCIgeDI9IjQ3LjAiIHkyPSI0OC4wIi8+PGxpbmUgeDE9IjM0LjgiIHkxPSI0MC44IiB4Mj0iMjUuMCIgeTI9IjM0LjAiLz48L2c+PC9zdmc+","ac3":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4NCIgaGVpZ2h0PSIxNDAiIHZpZXdCb3g9IjAgMCA4NCAxNDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNzMuMiIgeTE9IjQ2LjUiIHgyPSI3My4zIiB5Mj0iMjcuMCIvPjxsaW5lIHgxPSI3My4yIiB5MT0iNDYuNSIgeDI9IjkuMCIgeTI9IjQ2LjUiLz48bGluZSB4MT0iNzMuMiIgeTE9IjQ2LjUiIHgyPSI3My4yIiB5Mj0iNjMuMCIvPjwvZz48L3N2Zz4=","ac4":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NCIgaGVpZ2h0PSIxNDAiIHZpZXdCb3g9IjAgMCA3NCAxNDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNjMuMCIgeTE9IjQ2LjUiIHgyPSI5LjAiIHkyPSI0Ni41Ii8+PC9nPjwvc3ZnPg==","ac5":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NCIgaGVpZ2h0PSIxNDAiIHZpZXdCb3g9IjAgMCA3NCAxNDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMzguMCIgeTE9IjYwLjIiIHgyPSIzMC4wIiB5Mj0iNDYuOCIvPjxsaW5lIHgxPSIzOC4wIiB5MT0iNjAuMiIgeDI9IjY0LjAiIHkyPSIyMi4wIi8+PGxpbmUgeDE9IjMwLjAiIHkxPSI0Ni44IiB4Mj0iOC4wIiB5Mj0iNzQuMCIvPjwvZz48L3N2Zz4=","ac6":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI3NSIgaGVpZ2h0PSIxNDAiIHZpZXdCb3g9IjAgMCA3NSAxNDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMjcuNSIgeTE9IjM5LjAiIHgyPSI4LjAiIHkyPSI2OS4wIi8+PGxpbmUgeDE9IjI3LjUiIHkxPSIzOS4wIiB4Mj0iNjUuMCIgeTI9IjYzLjAiLz48L2c+PC9zdmc+","ac7":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNiIgaGVpZ2h0PSIxNDAiIHZpZXdCb3g9IjAgMCAzNiAxNDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iMjUuNSIgeTE9IjEzNC4wIiB4Mj0iMjUuNSIgeTI9IjEwMS4wIi8+PGxpbmUgeDE9IjI1LjUiIHkxPSIxMDEuMCIgeDI9IjEwLjAiIHkyPSI4Ni4wIi8+PC9nPjwvc3ZnPg==","pu1":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDQiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTA0IDEwMCI+PGcgc3Ryb2tlPSIjZTllMWQ2IiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIGZpbGw9Im5vbmUiPjxsaW5lIHgxPSI1NS4wIiB5MT0iMzguNyIgeDI9Ijc0LjAiIHkyPSI2LjAiLz48bGluZSB4MT0iNTUuMCIgeTE9IjM4LjciIHgyPSI5MC43IiB5Mj0iMzguNyIvPjxsaW5lIHgxPSI1NS4wIiB5MT0iMzguNyIgeDI9IjkuMCIgeTI9IjgyLjAiLz48bGluZSB4MT0iNzQuMCIgeTE9IjYuMCIgeDI9IjkwLjciIHkyPSIzOC43Ii8+PC9nPjwvc3ZnPg==","pu2":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCA2MCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iNDUuNyIgeTE9Ijg5LjciIHgyPSIxMy4zIiB5Mj0iODkuNyIvPjxsaW5lIHgxPSI0NS43IiB5MT0iODkuNyIgeDI9IjMwLjAiIHkyPSI1OC44Ii8+PGxpbmUgeDE9IjEzLjMiIHkxPSI4OS43IiB4Mj0iMzAuMCIgeTI9IjU4LjgiLz48bGluZSB4MT0iMzAuMCIgeTE9IjcuMCIgeDI9IjMwLjAiIHkyPSI1OC44Ii8+PC9nPjwvc3ZnPg==","pu3":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCAyOCAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iOC4wIiB5MT0iODYuMCIgeDI9IjIwLjAiIHkyPSI4Ni4wIi8+PGxpbmUgeDE9IjIwLjAiIHkxPSI4Ni4wIiB4Mj0iMjAuMCIgeTI9Ijc0LjAiLz48bGluZSB4MT0iMjAuMCIgeTE9Ijc0LjAiIHgyPSI4LjAiIHkyPSI3NC4wIi8+PGxpbmUgeDE9IjguMCIgeTE9Ijc0LjAiIHgyPSI4LjAiIHkyPSI4Ni4wIi8+PC9nPjwvc3ZnPg==","pu4":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxMDAiIHZpZXdCb3g9IjAgMCAxNiAxMDAiPjxnIHN0cm9rZT0iI2U5ZTFkNiIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBmaWxsPSJub25lIj48bGluZSB4MT0iOC4wIiB5MT0iNzIuMCIgeDI9IjguMCIgeTI9Ijk1LjAiLz48L2c+PC9zdmc+"};
+
+// --- FUNÇÕES UTILITÁRIAS ---
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const norm = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+const tok = s => {
+    const u = norm(s).toUpperCase(), t = [];
+    for (let i = 0; i < u.length; i++) {
+        const d = u.substr(i, 2);
+        if (['CH', 'LH', 'SS'].includes(d)) { t.push(d); i++; } 
+        else t.push(u[i]);
+    }
+    return t;
+};
+const cmp = (a, b) => {
+    const x = tok(a), y = tok(b);
+    for (let i = 0; i < Math.min(x.length, y.length); i++) {
+        const d = ORDER.indexOf(x[i]) - ORDER.indexOf(y[i]);
+        if (d) return d;
+    }
+    return x.length - y.length;
+};
+const gl = s => tok(s).map(t => ORDER.includes(t) ? `<img class="gl" src="${G[t.toLowerCase()]}" alt="${t}" title="${t}">` : esc(t == ' ' ? ' ' : t)).join('');
+
+const ARCH = '<svg viewBox="0 0 92 70" fill="none" stroke="#8f7f60" stroke-width="1.2" stroke-linejoin="miter"><path d="M6 68V36L46 3 86 36V68"/><path d="M18 68V40L46 16 74 40V68"/><path d="M46 3V16M30 68V48L46 32 62 48V68"/></svg>';
+
+// --- AUTENTICAÇÃO E SESSÃO ---
+let U = null;
+let page = 'dict';
+
+function hero(sm) {
+    return `<div class="hero ${sm ? 'sm' : ''}">${ARCH}<h1>Tacizin</h1><div class="sub">IDIMUS DONV ZAN</div><div class="rule"><i></i></div></div>`;
+}
+
+// O portão não possui mais entrada de visitante.
+function gate() {
+    document.querySelector('.top')?.remove();
+    app.innerHTML = `<div class="page narrow">${hero()}
+    <p class="tag" style="text-align:center">“Uma língua. Uma identidade. Uma civilização.”</p>
+    <p class="small" style="text-align:center">Dicionário e sistema linguístico</p>
+    <p class="small" style="text-align:center;margin:26px 0 16px;color:var(--acc)">Selecione uma opção</p>
+    <div class="card"><h3>Já possui uma conta?</h3><button class="p" onclick="loginView()">Entrar na conta</button></div>
+    <div class="card"><h3>É sua primeira visita?</h3><button class="p" onclick="regView()">Criar uma conta</button></div>
+    </div>`;
+}
+
+function loginView() {
+    app.innerHTML = `<div class="page narrow">${hero()}
+    <div class="card"><h3>Bem-vindo de volta</h3><p>Entre com suas credenciais.</p>
+    <label>Nome de usuário</label><input id="u" placeholder="Digite seu nome de usuário...">
+    <label>Senha</label><div class="row"><div class="g"><input id="p" type="password" placeholder="Digite sua senha..."></div><button class="sm" onclick="tg('p',this)">Mostrar</button></div>
+    <div class="msg err" id="m"></div><button class="p" onclick="doLogin()">Entrar</button></div>
+    <p style="text-align:center"><button class="lk" onclick="gate()">Voltar</button></p></div>`;
+}
+
+function regView() {
+    app.innerHTML = `<div class="page narrow">${hero()}
+    <div class="card"><h3>Criar uma conta</h3><p>Registre-se para aprender o Tacizin.</p>
+    <label>Nome de usuário</label><input id="u" placeholder="Escolha um nome...">
+    <label>Senha</label><input id="p" type="password" placeholder="Crie uma senha...">
+    <div class="msg" id="m"></div><button class="p" onclick="doReg()">Criar conta</button></div>
+    <p style="text-align:center"><button class="lk" onclick="gate()">Voltar</button></p></div>`;
+}
+
+function tg(id, b) {
+    const i = $('#' + id);
+    i.type = i.type == 'password' ? 'text' : 'password';
+    b.textContent = i.type == 'password' ? 'Mostrar' : 'Ocultar';
+}
+
+function doLogin() {
+    const u = $('#u').value.trim();
+    const p = $('#p').value;
+    const m = $('#m');
+    const user = db.users.find(x => x.username.toLowerCase() === u.toLowerCase());
+
+    if (user && user.password === p) {
+        U = user;
+        localStorage.setItem('tz_sess', U.username);
+        go('dict');
+    } else {
+        m.className = 'msg err';
+        m.textContent = 'Usuário ou senha incorretos.';
+    }
+}
+
+function doReg() {
+    const u = $('#u').value.trim();
+    const p = $('#p').value;
+    const m = $('#m');
+    
+    if (u.length < 3 || p.length < 4) {
+        m.className = 'msg err';
+        m.textContent = 'Usuário deve ter 3 letras e senha 4 caracteres mínimos.';
+        return;
+    }
+    if (db.users.find(x => x.username.toLowerCase() === u.toLowerCase())) {
+        m.className = 'msg err';
+        m.textContent = 'Este usuário já existe.';
+        return;
+    }
+
+    const newUser = { username: u, password: p, role: 'user', joinedAt: Date.now() };
+    db.users.push(newUser);
+    saveDb();
+    if(window.saveUserToCloud) window.saveUserToCloud(newUser);
+    
+    m.className = 'msg ok';
+    m.textContent = 'Conta criada com sucesso! Faça login.';
+}
+
+function logout() {
+    localStorage.removeItem('tz_sess');
+    U = null;
+    gate();
+}
+
+function boot() {
+    const sess = localStorage.getItem('tz_sess');
+    if (sess) {
+        const user = db.users.find(x => x.username === sess);
+        if (user) {
+            U = user;
+            go('dict');
+            return;
+        }
+    }
+    gate();
+}
+
+// --- TECLADO ZAN (RESTAURADO) ---
+let kbMode = 'lat';
+function kb(target) {
+    return `<div><div class="row">
+    <button class="sm ${kbMode == 'lat' ? 'act' : ''}" onclick="setKb('lat','${target}')">Teclado Latino</button>
+    <button class="sm ${kbMode == 'zan' ? 'act' : ''}" onclick="setKb('zan','${target}')">Teclado Zan</button>
+    <button class="sm" onclick="kbDel('${target}')">⌫ Apagar</button>
+    </div><div class="kb">
+    ${ORDER.map(l => `<button type="button" onclick="kbIns('${target}','${l}')">${kbMode == 'zan' ? `<img src="${G[l.toLowerCase()]}" alt="${l}">` : l}</button>`).join('')}
+    </div></div>`;
+}
+function setKb(m, t) {
+    kbMode = m;
+    const k = document.querySelector('[data-kb="' + t + '"]');
+    if (k) k.innerHTML = kb(t);
+}
+function kbIns(t, l) {
+    const i = $('#' + t);
+    if (!i) return;
+    i.value += l;
+    i.dispatchEvent(new Event('input'));
+    i.focus();
+}
+function kbDel(t) {
+    const i = $('#' + t);
+    if (!i) return;
+    const x = tok(i.value);
+    x.pop();
+    i.value = x.join('');
+    i.dispatchEvent(new Event('input'));
+}
+function zanField(id, val = '') {
+    return `<input id="${id}" value="${esc(val)}" placeholder="Escreva em Idimus Donv Zan..." oninput="document.getElementById('${id}_g').innerHTML=gl(this.value)">
+    <div class="glyphs" id="${id}_g">${gl(val)}</div>
+    <div data-kb="${id}">${kb(id)}</div>`;
+}
+
+// --- NAVEGAÇÃO ---
+function go(p) {
+    page = p;
+    draw();
+    scrollTo(0, 0);
+}
+window.go = go;
+
+function shell(inner) {
+    const n = [
+        ['dict', 'Dicionário'],
+        ['alpha', 'Alfabeto'],
+        ['trans', 'Tradutor'],
+        ['about', 'Sobre o Tacizin']
+    ];
+    if (U && U.role === 'master') {
+        n.push(['admin', 'Painel Administrativo']);
+    }
+    
+    return `<header class="top">
+        <a class="brand" onclick="go('dict')">Tacizin</a>
+        <nav>${n.map(([k, t]) => `<a class="${page == k ? 'on' : ''}" onclick="go('${k}')">${t}</a>`).join('')}
+        <a onclick="logout()">Sair (${esc(U.username)})</a></nav>
+    </header>
+    <div class="page">${hero(1)}${inner}</div>`;
+}
+
+function draw() {
+    const views = { dict, alpha, trans, about, admin };
+    const f = views[page] || dict;
+    f();
+}
+window.draw = draw;
+
+// --- PÁGINAS ---
+let q = '', letter = '';
+
+function card(w) {
+    return `<div class="entry">
+        <div class="glyphs">${gl(w.word)}</div>
+        <h2>${esc(w.word)}</h2>
+        <div class="m">${esc(w.meaning)}</div>
+        <div class="pr">Pronúncia: ${esc(w.pron || '—')}</div>
+    </div>`;
+}
+
+function dict() {
+    const list = db.words.filter(w => {
+        const n = norm(q);
+        return (!n || [w.word, w.meaning, w.pron].some(v => norm(v).includes(n)) || norm(tok(w.word).join('')) == n) &&
+               (!letter || tok(w.word)[0] == letter);
+    }).sort((a, b) => cmp(a.word, b.word));
+
+    app.innerHTML = shell(`<h2>Dicionário</h2><p style="color:var(--muted)">Consulte o vocabulário oficial do Idimus Donv Zan.</p>
+    
+    <input id="q" type="search" placeholder="Pesquise uma palavra ou significado..." value="${esc(q)}" autocomplete="off">
+    <div class="row" style="margin:12px 0">
+        <button class="sm ${!letter ? 'act' : ''}" onclick="letter='';go('dict')">Todas</button>
+        ${ORDER.map(l => `<button class="sm ${letter == l ? 'act' : ''}" onclick="letter='${l}';go('dict')">${l}</button>`).join('')}
+    </div>
+    
+    <div class="grid">${list.map(card).join('') || '<p style="color:var(--muted)">Nenhuma palavra encontrada.</p>'}</div>`);
+
+    const i = $('#q');
+    if (i) {
+        i.oninput = () => {
+            q = i.value;
+            const p = i.selectionStart;
+            go('dict');
+            $('#q').focus();
+            $('#q').setSelectionRange(p, p);
+        };
+    }
+}
+
+function alpha() {
+    app.innerHTML = shell(`<h2>Alfabeto</h2>
+    <div class="sec"><h2>1. Letras</h2><p>21 letras independentes; CH, LH e SS são letras próprias.</p>
+    <table><tr><th>#</th><th>Símbolo</th><th>Letra</th><th>Nome</th></tr>
+    ${ORDER.map((l, i) => `<tr><td>${i + 1}</td><td><img src="${G[l.toLowerCase()]}" alt="${l}"></td><td>${l}</td><td>${NAMES[i]}</td></tr>`).join('')}
+    </table></div>
+    <div class="sec"><h2>2. Acentuação</h2>
+    <table><tr><th>Sinal</th><th>Nome</th><th>Equivalência</th><th>Explicação</th></tr>
+    ${ACC.map((a, i) => `<tr><td><img src="${G['ac' + (i + 1)]}" alt=""></td><td>${a[0]}</td><td>${a[1]}</td><td>${a[2]}</td></tr>`).join('')}
+    </table></div>
+    <div class="sec"><h2>3. Pontuação</h2>
+    <table><tr><th>Sinal</th><th>Nome</th><th>Equivalente</th><th>Explicação</th></tr>
+    ${PUN.map((a, i) => `<tr><td><img src="${G['pu' + (i + 1)]}" alt=""></td><td>${a[1]}</td><td>${a[0]}</td><td>${a[2]}</td></tr>`).join('')}
+    </table></div>`);
+}
+
+let dir = 'zan';
+function trans() {
+    app.innerHTML = shell(`<h2>Tradutor</h2><p style="color:var(--muted)">Traduza palavras do Idimus Donv Zan.</p>
+    <div class="row" style="margin-bottom:14px">
+        <button class="sm ${dir == 'zan' ? 'act' : ''}" onclick="dir='zan';go('trans')">Idimus Donv Zan → Português</button>
+        <button class="sm ${dir == 'pt' ? 'act' : ''}" onclick="dir='pt';go('trans')">Português → Idimus Donv Zan</button>
+    </div>
+    <label>Texto</label>
+    ${dir == 'zan' ? zanField('ti') : '<input id="ti" placeholder="Digite uma palavra em português...">'}
+    <div class="card" style="margin-top:14px;text-align:left" id="to">—</div>`);
+
+    const i = $('#ti');
+    if (i) {
+        i.addEventListener('input', () => {
+            const n = norm(i.value);
+            if (!n) return $('#to').innerHTML = '—';
+            
+            const r = dir == 'zan' 
+                ? db.words.filter(w => tok(w.word).join('') == tok(n).join('')) 
+                : db.words.filter(w => norm(w.meaning).split(/[\s,;/()]+/).includes(n) || norm(w.meaning) == n);
+            
+            $('#to').innerHTML = r.length 
+                ? r.map(w => dir == 'zan' 
+                    ? `<b>${esc(w.meaning)}</b><div class="pr">Pronúncia: ${esc(w.pron || '—')}</div>` 
+                    : `<div class="glyphs">${gl(w.word)}</div><b>${esc(w.word)}</b><div class="pr">Pronúncia: ${esc(w.pron || '—')}</div>`
+                  ).join('<hr style="border-color:var(--line); margin: 10px 0;">') 
+                : 'Palavra não encontrada no dicionário.';
+        });
+    }
+}
+
+function about() {
+    app.innerHTML = shell(`<h2>Sobre o Tacizin</h2>
+    <table>
+        <tr><th>Nome do sistema</th><td>Tacizin</td></tr>
+        <tr><th>Idioma</th><td>Idimus Donv Zan</td></tr>
+        <tr><th>Criador</th><td>Zani</td></tr>
+        <tr><th>Quantidade de letras</th><td>21</td></tr>
+    </table>`);
+}
+
+// --- PAINEL DO MESTRE & ESTATÍSTICAS ---
+function admin() {
+    if (U.role !== 'master') return go('dict');
+
+    const renderChart = () => {
+        if(db.words.length === 0) return '<p style="color:var(--muted)">Adicione palavras para ver o gráfico.</p>';
+        
+        const counts = {};
+        db.words.forEach(w => {
+            const d = new Date(w.createdAt || Date.now()).toLocaleDateString('pt-BR');
+            counts[d] = (counts[d] || 0) + 1;
+        });
+        
+        const dates = Object.keys(counts).sort((a, b) => {
+            const [da, ma, ya] = a.split('/');
+            const [db, mb, yb] = b.split('/');
+            return new Date(ya, ma - 1, da) - new Date(yb, mb - 1, db);
+        });
+
+        const max = Math.max(...Object.values(counts));
+        let html = '<div style="display:flex; align-items:flex-end; gap:6px; height:120px; padding:10px; border-bottom:1px solid var(--line); border-left:1px solid var(--line); margin-top:14px; overflow-x:auto;">';
+        
+        dates.forEach(d => {
+            const h = (counts[d] / max) * 100;
+            html += `<div style="flex:1; background:var(--acc); height:${h}%; min-width:30px; border-radius:4px 4px 0 0; position:relative; text-align:center;" title="${d}: ${counts[d]} palavras">
+                <span style="position:absolute; top:-20px; left:50%; transform:translateX(-50%); font-size:12px; font-weight:bold; color:var(--text)">${counts[d]}</span>
+                <span style="position:absolute; bottom:-25px; left:50%; transform:translateX(-50%) rotate(-45deg); font-size:10px; color:var(--muted); white-space:nowrap">${d}</span>
+            </div>`;
+        });
+        html += '</div><div style="height:30px"></div>';
+        return html;
+    };
+
+    const renderUserTable = () => {
+        const counts = {};
+        db.words.forEach(w => {
+            const user = w.createdBy || 'Zani';
+            counts[user] = (counts[user] || 0) + 1;
+        });
+        let html = '<table><tr><th>Mestre/Usuário</th><th>Palavras Criadas</th></tr>';
+        Object.keys(counts).sort((a, b) => counts[b] - counts[a]).forEach(u => {
+            html += `<tr><td>${esc(u)}</td><td>${counts[u]}</td></tr>`;
+        });
+        html += '</table>';
+        return html;
+    };
+
+    app.innerHTML = shell(`<h2>Painel Administrativo</h2>
+    
+    <div class="sec"><h2>Estatísticas Gerais</h2>
+        <div class="stats">
+            <div class="stat">Pessoas que Aprendem<b>${db.users.length}</b></div>
+            <div class="stat">Total de Palavras<b>${db.words.length}</b></div>
+        </div>
+        <h3 style="margin-top:20px; font-size:14px; color:var(--acc2);">Histórico de Criação (Por Data)</h3>
+        ${renderChart()}
+        <h3 style="margin-top:20px; font-size:14px; color:var(--acc2);">Produção por Usuário</h3>
+        ${renderUserTable()}
+    </div>
+
+    <div class="sec"><h2>Gerenciar palavras</h2>
+        <label>Palavra</label>${zanField('aw')}
+        <label>Significado</label><textarea id="am"></textarea>
+        <label>Pronúncia</label><input id="ap">
+        <input type="hidden" id="aid">
+        <div class="msg" id="amsg"></div>
+        <div class="row">
+            <button class="p" onclick="saveW()">Salvar palavra</button>
+            <button onclick="go('admin')">Limpar Formulário</button>
+        </div>
+        
+        <table style="margin-top:24px">
+        ${[...db.words].sort((a,b)=>cmp(a.word,b.word)).map(w=>`
+            <tr>
+                <td>${gl(w.word)}<br><b>${esc(w.word)}</b></td>
+                <td>${esc(w.meaning)}<div class="pr">${esc(w.pron)}</div></td>
+                <td>
+                    <button class="sm" onclick="editW('${w.id}')">Editar</button> 
+                    <button class="sm" style="color:#d0a3a0; border-color:#d0a3a0;" onclick="delW('${w.id}')">Excluir</button>
+                </td>
+            </tr>`).join('')}
+        </table>
+    </div>
+    
+    <div class="sec"><h2>Exportar / Importar Base de Dados</h2>
+        <p>Como o banco de dados é local, use estas opções para fazer cópias de segurança (backup) ou enviar o dicionário atualizado para outras pessoas.</p>
+        <div class="row">
+            <button class="p" onclick="expDb()">⬇ Exportar Base (.json)</button>
+            <button onclick="$('#bf').click()">⬆ Importar Base (.json)</button>
+            <input id="bf" type="file" accept=".json" hidden onchange="impDb(event)">
+        </div>
+        <div class="msg" id="bmsg"></div>
+    </div>
+    `);
+}
+
+window.saveW = function() {
+    const id = $('#aid').value;
+    const word = $('#aw').value.trim();
+    const meaning = $('#am').value.trim();
+    const pron = $('#ap').value.trim();
+    
+    if (!word || !meaning) {
+        $('#amsg').className = 'msg err';
+        $('#amsg').textContent = 'Palavra e significado são obrigatórios.';
+        return;
+    }
+
+    let savedWord;
+    if (id) {
+        savedWord = db.words.find(x => x.id == id);
+        if (savedWord) { savedWord.word = word; savedWord.meaning = meaning; savedWord.pron = pron; }
+    } else {
+        savedWord = { 
+            id: crypto.randomUUID(), 
+            word, meaning, pron, 
+            createdBy: U.username, 
+            createdAt: Date.now() 
+        };
+        db.words.push(savedWord);
+    }
+    
+    saveDb();
+    if(window.saveWordToCloud && savedWord) window.saveWordToCloud(savedWord);
+    go('admin');
+}
+
+window.editW = function(id) {
+    const w = db.words.find(x => x.id == id);
+    $('#aw').value = w.word;
+    $('#aw').dispatchEvent(new Event('input'));
+    $('#am').value = w.meaning;
+    $('#ap').value = w.pron;
+    $('#aid').value = id;
+    scrollTo(0, 0);
+}
+
+window.delW = function(id) {
+    if (confirm('Tem certeza que deseja excluir esta palavra?')) {
+        db.words = db.words.filter(w => w.id !== id);
+        saveDb();
+        if(window.deleteWordFromCloud) window.deleteWordFromCloud(id);
+        go('admin');
+    }
+}
+
+window.expDb = function() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db, null, 2));
+    const dlAnchorElem = document.createElement('a');
+    dlAnchorElem.setAttribute("href", dataStr);
+    dlAnchorElem.setAttribute("download", "tacizin_backup.json");
+    dlAnchorElem.click();
+}
+
+window.impDb = function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const importedDb = JSON.parse(e.target.result);
+            if (importedDb && importedDb.words && importedDb.users) {
+                db = importedDb;
+                saveDb();
+                alert('Base de dados importada com sucesso!');
+                go('admin');
+            } else {
+                $('#bmsg').textContent = 'Arquivo inválido. Formato incorreto.';
+            }
+        } catch (err) {
+            $('#bmsg').textContent = 'Erro ao ler arquivo JSON.';
+        }
+    };
+    reader.readAsText(file);
+}
+
+// Iniciar app
+window.onload = boot;
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, onSnapshot, collection, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+if (typeof __firebase_config !== 'undefined') {
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'tacizin-app';
+    const app = initializeApp(JSON.parse(__firebase_config));
+    const firestore = getFirestore(app);
+    const auth = getAuth(app);
+    
+    const wordsRef = collection(firestore, 'artifacts', appId, 'public', 'data', 'words');
+    const usersRef = collection(firestore, 'artifacts', appId, 'public', 'data', 'users');
+
+    window.saveUserToCloud = async function(u) {
+        if(auth.currentUser) await setDoc(doc(usersRef, u.username.toLowerCase()), u);
+    };
+    window.saveWordToCloud = async function(w) {
+        if(auth.currentUser) await setDoc(doc(wordsRef, w.id), w);
+    };
+    window.deleteWordFromCloud = async function(id) {
+        if(auth.currentUser) await deleteDoc(doc(wordsRef, id));
+    };
+
+    async function initAuth() {
+        if (typeof __initial_auth_token !== 'undefined') {
+            await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+            await signInAnonymously(auth);
+        }
+        if (!auth.currentUser) return;
+        
+        onSnapshot(wordsRef, (snap) => {
+            window.db.words = snap.docs.map(d => ({id: d.id, ...d.data()}));
+            if(window.page === 'dict' || window.page === 'admin' || window.page === 'trans') window.draw();
+        }, console.error);
+
+        onSnapshot(usersRef, (snap) => {
+            window.db.users = snap.docs.map(d => d.data());
+            if (!window.db.users.find(u => u.username === 'Zani')) {
+                window.saveUserToCloud({ username: 'Zani', password: 'ZanDaGuerra', role: 'master', joinedAt: Date.now() });
+            }
+        }, console.error);
+    }
+    initAuth();
+}
+</script>
+</body>
+</html>
